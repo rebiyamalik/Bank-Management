@@ -1,1 +1,180 @@
 
+/* -----------------------
+   Global Reset & Base
+------------------------ */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  color: #fff;
+}
+
+/* Apply shared background styles */
+body.home-page,
+body.services-page,
+body.loans-page,
+body.about-page,
+body.contact-page {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* -----------------------
+   Background Images
+------------------------ */
+
+body.home-page {
+  background-image: url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1600&q=80');
+}
+
+body.services-page {
+  background-image: url('https://images.unsplash.com/photo-1625821262052-8ba8c91561af?auto=format&fit=crop&w=1600&q=80');
+}
+
+body.loans-page {
+  background-image: url('banking-and-finance.jpg');
+}
+
+body.about-page {
+  background-image: url('https://images.unsplash.com/photo-1612831455543-7c6b5c7040ed?auto=format&fit=crop&w=1600&q=80');
+}
+
+body.contact-page {
+  background-image: url('https://images.app.goo.gl/NPFp98wuAq3ZQUP58');
+}
+
+/* -----------------------
+   Header & Navigation
+------------------------ */
+header {
+  background-color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  padding: 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #ffcc00;
+}
+h2, h3 {
+  color: #005691;
+}
+
+ul {
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+nav a:hover {
+  color: #ffd700;
+}
+
+/* -----------------------
+   Content Containers
+------------------------ */
+.container, .main-content, .form-section, .accounts, .form, .page {
+  background: rgba(255, 255, 255, 0.85); /* Soft white glass effect */
+  color: #222; /* Dark text for readability */
+  padding: 40px;
+  border-radius: 15px;
+  max-width: 900px;
+  margin: 60px auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+
+
+
+
+/* -----------------------
+   Forms & Buttons
+------------------------ */
+input, textarea {
+  padding: 12px;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 400px;
+  margin: 10px 0;
+  border: none;
+  font-size: 1rem;
+}
+
+button, .btn {
+  background-color: #ffcc00;
+  color: #000;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+button:hover, .btn:hover {
+  background-color: #e6b800;
+}
+
+/* -----------------------
+   Footer
+------------------------ */
+footer {
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #ccc;
+  text-align: center;
+  padding: 15px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+/* -----------------------
+   Lists & Messages
+------------------------ */
+.accounts ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-top: 20px;
+  color: #eee;
+}
+
+#message, #notification {
+  font-weight: bold;
+  margin-top: 15px;
+  color: #ffd700;
+}
+
+/* CTA Button */
+.cta-button {
+  background-color: #ff9800;
+  color: white;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  display: inline-block;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #e68900;
+}
