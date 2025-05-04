@@ -1,12 +1,14 @@
-
+ style-css
 /* -----------------------
    Global Reset & Base
 ------------------------ */
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  min-height: 100vh;
+  min-height: 100vh
+  style-css
   color: #fff;
 }
 
@@ -52,11 +54,47 @@ header {
   background-color: rgba(0, 0, 0, 0.7);
   text-align: center;
   padding: 20px;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #ffffff; /* Default white text */
+}
+
+/* Page-Specific Backgrounds */
+body.home-page {
+  background-image: url('images/home.jpeg');
+}
+
+body.services-page {
+  background-image: url('images/services.jpeg');
+}
+
+body.loans-page {
+  background-image: url('images/loans.jpeg');
+}
+
+body.about-page {
+  background-image: url('images/about.jpeg');
+}
+
+body.contact-page {
+  background-image: url('images/contact.jpeg');
+}
+
+/* Header Styling */
+header {
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+main
 }
 
 header h1 {
   margin: 0;
   font-size: 2rem;
+  style-css
   color: #ffcc00;
 }
 h2, h3 {
@@ -66,6 +104,7 @@ h2, h3 {
 ul {
   padding-left: 20px;
   line-height: 1.6;
+
 }
 
 nav {
@@ -81,6 +120,7 @@ nav a {
 }
 
 nav a:hover {
+style-css
   color: #ffd700;
 }
 
