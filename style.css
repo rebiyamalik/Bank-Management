@@ -1,4 +1,3 @@
-
 /* Global Reset & Base */
 body {
   margin: 0;
@@ -32,6 +31,10 @@ body.contact-page {
   background-image: url('images/contact.jpeg');
 }
 
+body.authentication-page {
+  background-image: url('images/authentication.jpeg'); /* NEW PAGE BACKGROUND */
+}
+
 /* Header Styling */
 header {
   background: rgba(0, 0, 0, 0.8);
@@ -63,12 +66,12 @@ nav a:hover {
 }
 
 /* Section Containers */
-.container, .form, .page, .accounts {
+.container, .form, .page, .accounts, .auth-box {
   background-color: rgba(255, 255, 255, 0.92);
   color: #111;
   padding: 30px;
   border-radius: 12px;
-  max-width: 800px;
+  max-width: 400px;
   margin: 50px auto;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
@@ -112,5 +115,23 @@ ul {
   font-weight: bold;
   margin-top: 10px;
 }
- main
 
+/* Authentication Page Specific */
+.auth-title {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 20px;
+}
+
+.auth-link {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
