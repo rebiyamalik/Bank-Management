@@ -31,7 +31,7 @@ body.contact-page {
   background-image: url('images/contact.jpeg');
 }
 
-body.authentication-page {
+body.auth-page {
   background-image: url('images/authentication.jpeg'); /* NEW PAGE BACKGROUND */
 }
 
