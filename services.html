@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TrustBank | Services</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="services-page">
   <header>
@@ -17,22 +18,127 @@
     </nav>
   </header>
 
-  <div class="form">
-    <input type="text" id="name" placeholder="Customer Name" />
+  <main class="container">
+    <input type="text" id="customerName" placeholder="Customer Name" />
     <input type="number" id="amount" placeholder="Amount" />
-    <button onclick="createAccount()">Create Account</button>
-    <button onclick="deposit()">Deposit</button>
-    <button onclick="withdraw()">Withdraw</button>
-    <button onclick="checkBalance()">Check Balance</button>
-    <button onclick="showAccounts()">Show All Accounts</button>
-  </div>
 
-  <p id="message"></p>
-  <div class="accounts">
-    <h3>Account Summary</h3>
-    <ul id="accountList"></ul>
-  </div>
+    <button id="createAccountBtn">Create Account</button>
+    <button id="depositBtn">Deposit</button>
+    <button id="withdrawBtn">Withdraw</button>
+    <button id="checkBalanceBtn">Check Balance</button>
+    <button id="deleteBtn">Delete Account</button>
+    <button id="showAllBtn">Show All Accounts</button>
+    <button id="historyBtn">Show History</button>
+    <button id="clearAllBtn" style="background-color: #dc3545;">Clear All Data</button>
 
-  <script src="script.js"></script>
+    <div id="summary" style="margin-top: 20px;"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 TrustBank. All rights reserved.</p>
+  </footer>
+
+  <script>
+    let accounts = JSON.parse(localStorage.getItem("accounts")) || {};
+    let history = JSON.parse(localStorage.getItem("history")) || {};
+
+    function saveData() {
+      localStorage.setItem("accounts", JSON.stringify(accounts));
+      localStorage.setItem("history", JSON.stringify(history));
+    }
+
+    function updateSummary(message) {
+      document.getElementById("summary").innerHTML = `<strong>${message}</strong>`;
+    }
+
+    function recordHistory(name, action) {
+      if (!history[name]) history[name] = [];
+      history[name].push(action);
+      saveData();
+    }
+
+    document.getElementById("createAccountBtn").onclick = () => {
+      const name = document.getElementById("customerName").value.trim();
+      if (name === "") return updateSummary("Please enter a valid name.");
+      if (accounts[name]) {
+        updateSummary("Account already exists.");
+      } else {
+        accounts[name] = 0;
+        history[name] = [];
+        recordHistory(name, "Account created.");
+        updateSummary(`Account created for ${name}.`);
+        saveData();
+      }
+    };
+
+    document.getElementById("depositBtn").onclick = () => {
+      const name = document.getElementById("customerName").value.trim();
+      const amount = parseFloat(document.getElementById("amount").value);
+      if (!accounts[name]) return updateSummary("Account not found.");
+      if (amount <= 0 || isNaN(amount)) return updateSummary("Enter valid deposit amount.");
+      accounts[name] += amount;
+      recordHistory(name, `Deposited ${amount}`);
+      updateSummary(`${amount} deposited. Balance: ${accounts[name]}`);
+      saveData();
+    };
+
+    document.getElementById("withdrawBtn").onclick = () => {
+      const name = document.getElementById("customerName").value.trim();
+      const amount = parseFloat(document.getElementById("amount").value);
+      if (!accounts[name]) return updateSummary("Account not found.");
+      if (amount <= 0 || isNaN(amount)) return updateSummary("Enter valid withdrawal amount.");
+      if (accounts[name] < amount) return updateSummary("Insufficient funds.");
+      accounts[name] -= amount;
+      recordHistory(name, `Withdrew ${amount}`);
+      updateSummary(`${amount} withdrawn. Balance: ${accounts[name]}`);
+      saveData();
+    };
+
+    document.getElementById("checkBalanceBtn").onclick = () => {
+      const name = document.getElementById("customerName").value.trim();
+      if (!accounts[name]) return updateSummary("Account not found.");
+      updateSummary(`${name}'s balance is: ${accounts[name]}`);
+    };
+
+    document.getElementById("deleteBtn").onclick = () => {
+      const name = document.getElementById("customerName").value.trim();
+      if (!accounts[name]) return updateSummary("Account not found.");
+      delete accounts[name];
+      delete history[name];
+      updateSummary(`Account for ${name} has been deleted.`);
+      saveData();
+    };
+
+    document.getElementById("showAllBtn").onclick = () => {
+      if (Object.keys(accounts).length === 0) return updateSummary("No accounts available.");
+      let all = "<h3>All Accounts:</h3><ul>";
+      for (let name in accounts) {
+        all += `<li>${name}: ${accounts[name]}</li>`;
+      }
+      all += "</ul>";
+      document.getElementById("summary").innerHTML = all;
+    };
+
+    document.getElementById("historyBtn").onclick = () => {
+      const name = document.getElementById("customerName").value.trim();
+      if (!history[name]) return updateSummary("No history for this account.");
+      let log = `<h3>Transaction History for ${name}:</h3><ul>`;
+      for (let item of history[name]) {
+        log += `<li>${item}</li>`;
+      }
+      log += "</ul>";
+      document.getElementById("summary").innerHTML = log;
+    };
+
+    // ✅ CLEAR ALL DATA FUNCTION
+    document.getElementById("clearAllBtn").onclick = () => {
+      if (confirm("Are you sure you want to delete all accounts and history?")) {
+        accounts = {};
+        history = {};
+        localStorage.clear();
+        updateSummary("All data has been cleared.");
+      }
+    };
+  </script>
 </body>
 </html>
