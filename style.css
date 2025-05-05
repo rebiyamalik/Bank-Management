@@ -42,18 +42,18 @@ header {
   padding: 20px;
   color: #fff;
 }
-/* Override black header only for loans page */
-body.loans-page header {
-  background: #f0f8ff; /* soft light blue */
-  color: #003366;       /* dark blue text */
-}
+
 
 header h1 {
   margin: 0;
   font-size: 2rem;
   color: #00c8ff;
 }
-
+/* Override black header only for loans page */
+body.loans-page header {
+  background: #f0f8ff; /* soft light blue */
+  color: #003366;       /* dark blue text */
+}
 nav {
   margin-top: 10px;
 }
