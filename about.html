@@ -2,95 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>TrustBank | Loan Services</title>
+  <title>TrustBank | About Us</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
-<style>
-.calculator {
-  position: absolute;      /* Allows exact placement */
-  left:600px;                /* Positions it to the far right */
-  top: 180px;              /* Adjust as needed for vertical spacing */
-  width: 400px;            /* Optional: control size */
-  padding: 50px;
-  background-color:skyblue; /* Optional styling */
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-.nav-bth{
-button-size: 50%
-}
-</style>
-
-<body class="loans-page">
+<body class="about-page">
   <header>
-    <div class="container">
-      <h1>TrustBank</h1>
-      <nav>
-        <button class="nav-btn"><a href="index.html">Home</a></button>
-        <button class="nav-btn"><a href="services.html">Services</a></button>
-        <button class="nav-btn"><a href="loans.html">Loans</a></button>
-        <button class="nav-btn"><a href="about.html">About</a></button>
-        <button class="nav-btn"> <a href="contact.html">Contact</a></button>
-      </nav>
-    </div>
+    <h1>About TrustBank</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="loans.html">Loans</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <main class="container">
-    <section class="hero reveal">
-      <h2>Your Trusted Loan Partner</h2>
-     <h4> <p>Explore flexible and secure financing options tailored to your needs.</p></h4>
-    </section>
-
-    <section class="loan-options reveal">
-      <h2>Loan Services</h2>
-      <ul>
-        <li><strong>🏦 Personal Loans:</strong> Quick cash with low interest rates.</li><br>
-        <li><strong>🏡 Home Loans:</strong> Own your dream house with easy EMIs.</li><br>
-        <li><strong>🎓 Education Loans:</strong> Invest in your child's future affordably.</li><br>
-        <li><strong>🚗 Vehicle Loans:</strong> Drive away with easy financing.</li><br>
-      </ul>
-    </section>
-
-    <section class="calculator reveal" style="">
-      <h3>Loan Calculator</h3>
-      <form id="loanForm">
-        <label>Amount:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="number" id="amount" required></label><br><br>
-        <label>Interest Rate (%): <input type="number" id="rate" required></label><br><br>
-        <label>Years: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="number" id="years" required></label><br><br>
-        <button type="submit">Calculate EMI</button><br><br>
-      </form>
-      <p id="result"></p>
-    </section>
+  <main class="page">
+    <p>TrustBank has served communities since 1995, offering secure and transparent financial services. We believe in trust, simplicity, and digital convenience. we welcome you
+    </p>
   </main>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 TrustBank. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script>
-    // Loan EMI Calculator
-    document.getElementById('loanForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const amount = parseFloat(document.getElementById('amount').value);
-      const rate = parseFloat(document.getElementById('rate').value) / 100 / 12;
-      const years = parseFloat(document.getElementById('years').value) * 12;
-      const emi = (amount * rate * Math.pow(1 + rate, years)) / (Math.pow(1 + rate, years) - 1);
-      document.getElementById('result').innerText = `Your monthly EMI is ₹${emi.toFixed(2)}`;
-    });
-
-    // Reveal on scroll animation
-    const reveals = document.querySelectorAll(".reveal");
-    window.addEventListener("scroll", function () {
-      for (let i = 0; i < reveals.length; i++) {
-        const windowHeight = window.innerHeight;
-        const elementTop = reveals[i].getBoundingClientRect().top;
-        if (elementTop < windowHeight - 100) {
-          reveals[i].classList.add("active");
-        }
-      }
-    });
-  </script>
 </body>
-</html>
