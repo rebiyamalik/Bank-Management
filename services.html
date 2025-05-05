@@ -19,8 +19,11 @@
   </header>
 
   <main class="container">
+    <h2>Create or Manage Account</h2>
     <input type="text" id="customerName" placeholder="Customer Name" />
-    <input type="number" id="amount" placeholder="Amount" />
+    <input type="text" id="accountNumber" placeholder="Account Number" />
+    <input type="email" id="email" placeholder="Email (optional)" />
+    <input type="number" id="amount" placeholder="Amount (for deposit/withdraw)" />
 
     <button id="createAccountBtn">Create Account</button>
     <button id="depositBtn">Deposit</button>
@@ -42,13 +45,22 @@
     let accounts = JSON.parse(localStorage.getItem("accounts")) || {};
     let history = JSON.parse(localStorage.getItem("history")) || {};
 
+    // Add sample accounts if none exist
+    if (Object.keys(accounts).length === 0) {
+      accounts["John Doe"] = { accountNumber: "1001", email: "john@example.com", balance: 200 };
+      history["John Doe"] = ["Account created.", "Deposited 200"];
+      accounts["Mary Smith"] = { accountNumber: "1002", email: "mary@example.com", balance: 500 };
+      history["Mary Smith"] = ["Account created.", "Deposited 500"];
+      saveData();
+    }
+
     function saveData() {
       localStorage.setItem("accounts", JSON.stringify(accounts));
       localStorage.setItem("history", JSON.stringify(history));
     }
 
-    function updateSummary(message) {
-      document.getElementById("summary").innerHTML = `<strong>${message}</strong>`;
+    function updateSummary(html) {
+      document.getElementById("summary").innerHTML = html;
     }
 
     function recordHistory(name, action) {
@@ -57,86 +69,97 @@
       saveData();
     }
 
+    function getFieldValues() {
+      return {
+        name: document.getElementById("customerName").value.trim(),
+        accNo: document.getElementById("accountNumber").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        amount: parseFloat(document.getElementById("amount").value)
+      };
+    }
+
     document.getElementById("createAccountBtn").onclick = () => {
-      const name = document.getElementById("customerName").value.trim();
-      if (name === "") return updateSummary("Please enter a valid name.");
-      if (accounts[name]) {
-        updateSummary("Account already exists.");
-      } else {
-        accounts[name] = 0;
-        history[name] = [];
-        recordHistory(name, "Account created.");
-        updateSummary(`Account created for ${name}.`);
-        saveData();
+      const { name, accNo, email } = getFieldValues();
+
+      if (!name || !accNo) {
+        return updateSummary("<span style='color:red'>Please enter name and account number.</span>");
       }
+
+      if (accounts[name]) {
+        return updateSummary("<span style='color:red'>Account already exists.</span>");
+      }
+
+      accounts[name] = { accountNumber: accNo, email, balance: 0 };
+      history[name] = [];
+      recordHistory(name, "Account created.");
+      updateSummary(`<span style='color:green'>Account for ${name} created successfully.</span>`);
+      saveData();
     };
 
     document.getElementById("depositBtn").onclick = () => {
-      const name = document.getElementById("customerName").value.trim();
-      const amount = parseFloat(document.getElementById("amount").value);
+      const { name, amount } = getFieldValues();
       if (!accounts[name]) return updateSummary("Account not found.");
-      if (amount <= 0 || isNaN(amount)) return updateSummary("Enter valid deposit amount.");
-      accounts[name] += amount;
+      if (isNaN(amount) || amount <= 0) return updateSummary("Enter a valid deposit amount.");
+      accounts[name].balance += amount;
       recordHistory(name, `Deposited ${amount}`);
-      updateSummary(`${amount} deposited. Balance: ${accounts[name]}`);
+      updateSummary(`<span style='color:green'>Deposited ₹${amount} to ${name}. New balance: ₹${accounts[name].balance}</span>`);
       saveData();
     };
 
     document.getElementById("withdrawBtn").onclick = () => {
-      const name = document.getElementById("customerName").value.trim();
-      const amount = parseFloat(document.getElementById("amount").value);
+      const { name, amount } = getFieldValues();
       if (!accounts[name]) return updateSummary("Account not found.");
-      if (amount <= 0 || isNaN(amount)) return updateSummary("Enter valid withdrawal amount.");
-      if (accounts[name] < amount) return updateSummary("Insufficient funds.");
-      accounts[name] -= amount;
+      if (isNaN(amount) || amount <= 0) return updateSummary("Enter a valid withdrawal amount.");
+      if (accounts[name].balance < amount) return updateSummary("Insufficient balance.");
+      accounts[name].balance -= amount;
       recordHistory(name, `Withdrew ${amount}`);
-      updateSummary(`${amount} withdrawn. Balance: ${accounts[name]}`);
+      updateSummary(`<span style='color:orange'>Withdrew ₹${amount} from ${name}. New balance: ₹${accounts[name].balance}</span>`);
       saveData();
     };
 
     document.getElementById("checkBalanceBtn").onclick = () => {
-      const name = document.getElementById("customerName").value.trim();
+      const { name } = getFieldValues();
       if (!accounts[name]) return updateSummary("Account not found.");
-      updateSummary(`${name}'s balance is: ${accounts[name]}`);
+      updateSummary(`${name}'s current balance: ₹${accounts[name].balance}`);
     };
 
     document.getElementById("deleteBtn").onclick = () => {
-      const name = document.getElementById("customerName").value.trim();
+      const { name } = getFieldValues();
       if (!accounts[name]) return updateSummary("Account not found.");
       delete accounts[name];
       delete history[name];
-      updateSummary(`Account for ${name} has been deleted.`);
       saveData();
+      updateSummary(`<span style='color:red'>Account for ${name} deleted.</span>`);
     };
 
     document.getElementById("showAllBtn").onclick = () => {
       if (Object.keys(accounts).length === 0) return updateSummary("No accounts available.");
-      let all = "<h3>All Accounts:</h3><ul>";
+      let html = "<h3>All Accounts</h3><table border='1' cellpadding='8'><tr><th>Name</th><th>Account No</th><th>Email</th><th>Balance</th></tr>";
       for (let name in accounts) {
-        all += `<li>${name}: ${accounts[name]}</li>`;
+        const acc = accounts[name];
+        html += `<tr><td>${name}</td><td>${acc.accountNumber}</td><td>${acc.email || "-"}</td><td>₹${acc.balance}</td></tr>`;
       }
-      all += "</ul>";
-      document.getElementById("summary").innerHTML = all;
+      html += "</table>";
+      updateSummary(html);
     };
 
     document.getElementById("historyBtn").onclick = () => {
-      const name = document.getElementById("customerName").value.trim();
+      const { name } = getFieldValues();
       if (!history[name]) return updateSummary("No history for this account.");
-      let log = `<h3>Transaction History for ${name}:</h3><ul>`;
+      let log = `<h3>Transaction History for ${name}</h3><ul>`;
       for (let item of history[name]) {
         log += `<li>${item}</li>`;
       }
       log += "</ul>";
-      document.getElementById("summary").innerHTML = log;
+      updateSummary(log);
     };
 
-    // ✅ CLEAR ALL DATA FUNCTION
     document.getElementById("clearAllBtn").onclick = () => {
-      if (confirm("Are you sure you want to delete all accounts and history?")) {
+      if (confirm("Are you sure you want to delete ALL accounts and data?")) {
         accounts = {};
         history = {};
         localStorage.clear();
-        updateSummary("All data has been cleared.");
+        updateSummary("All account data cleared.");
       }
     };
   </script>
