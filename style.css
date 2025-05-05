@@ -117,13 +117,13 @@ ul {
 }
 
 /* Authentication Page Specific */
-.auth-title {
+.authentication-title {
   text-align: center;
   color: #003366;
   margin-bottom: 20px;
 }
 
-.auth-link {
+.authentication-link {
   display: block;
   text-align: center;
   margin-top: 15px;
@@ -132,6 +132,6 @@ ul {
   text-decoration: none;
 }
 
-.auth-link:hover {
+.authentication-link:hover {
   text-decoration: underline;
 }
