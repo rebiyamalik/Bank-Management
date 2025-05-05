@@ -1,9 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TrustBank | Contact</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main.page {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    section {
+      margin-bottom: 2rem;
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .contact-info p i {
+      margin-right: 10px;
+      color: #003366;
+    }
+
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-form label {
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .contact-form button {
+      margin-top: 15px;
+      padding: 12px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    .contact-form button:hover {
+      background-color: #0055a5;
+    }
+
+    .map iframe {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+    }
+
+    .social-media a {
+      margin-right: 15px;
+      text-decoration: none;
+      color: #003366;
+      font-weight: bold;
+    }
+
+    .social-media a i {
+      margin-right: 8px;
+    }
+
+    footer {
+      background-color: #003366;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      nav a {
+        display: block;
+        margin: 8px 0;
+      }
+
+      .contact-form form {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body class="contact-page">
 
@@ -19,9 +144,49 @@
   </header>
 
   <main class="page">
-    <p><strong>Email:</strong> support@trustbank.com</p>
-    <p><strong>Phone:</strong> +92-123-4567890</p>
-    <p><strong>Address:</strong> TrustBank HQ, City Center, Pakistan</p>
+
+    <section class="contact-info">
+      <p><i class="fas fa-envelope"></i> <strong>Email:</strong> support@trustbank.com</p>
+      <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +92-123-4567890</p>
+      <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> TrustBank HQ, City Center, Pakistan</p>
+    </section>
+
+    <section class="contact-form">
+      <h2>Send Us a Message</h2>
+      <form action="submit_form.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <section class="map">
+      <h2>Find Us Here</h2>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d..." 
+        height="300" loading="lazy" allowfullscreen title="TrustBank Location">
+      </iframe>
+    </section>
+
+    <section class="social-media">
+      <h2>Connect with Us</h2>
+      <a href="https://facebook.com/trustbank" target="_blank"><i class="fab fa-facebook"></i>Facebook</a>
+      <a href="https://twitter.com/trustbank" target="_blank"><i class="fab fa-twitter"></i>Twitter</a>
+      <a href="https://linkedin.com/company/trustbank" target="_blank"><i class="fab fa-linkedin"></i>LinkedIn</a>
+    </section>
+
   </main>
+
+  <footer>
+    <p>&copy; 2025 TrustBank. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
